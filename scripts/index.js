@@ -3,7 +3,7 @@ const head = document.getElementById('head');
 const merrywrap = document.getElementById('merrywrap');
 
 const config = {
-  birthdate: 'Oct 11, 2024',
+  birthdate: 'Oct 10, 2024',
   name: 'SuSu (Nguyễn Quỳnh Anh)'
 };
 
