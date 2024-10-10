@@ -154,3 +154,86 @@ li span {
   bottom: 80px;
   top: 40px;
 }
+
+/* ... existing styles ... */
+
+@media screen and (max-width: 768px) {
+  .container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  li {
+    font-size: 1.2em;
+    padding: 0.5em;
+  }
+
+  li span {
+    font-size: 3rem;
+  }
+
+  .card {
+    width: 250px;
+    height: 350px;
+  }
+
+  .card .imgBox img {
+    min-width: 200px;
+    max-height: 350px;
+  }
+
+  .card .details {
+    padding: 0 0 0 5px;
+    margin-top: 50px;
+  }
+
+  .card .details p {
+    font-size: 13px;
+    line-height: 4px;
+  }
+
+  .merrywrap {
+    right: 20px;
+    left: 20px;
+    bottom: 40px;
+    top: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 20px;
+  }
+
+  li {
+    font-size: 1em;
+    padding: 0.3em;
+  }
+
+  li span {
+    font-size: 2.5rem;
+  }
+
+  .card {
+    width: 200px;
+    height: 300px;
+  }
+
+  .card .imgBox img {
+    min-width: 150px;
+    max-height: 300px;
+  }
+
+  .card .details {
+    margin-top: 30px;
+  }
+
+  .card .details p {
+    font-size: 11px;
+    line-height: 3px;
+  }
+}

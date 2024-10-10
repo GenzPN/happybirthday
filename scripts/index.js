@@ -56,7 +56,11 @@ function updateCountdown() {
   merrywrap.style.display = 'none';
 
   // Cập nhật tiêu đề với thời gian còn lại
-  head.innerText = `Còn ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây đến sinh nhật của ${config.name}`;
+  if (window.innerWidth <= 480) {
+    head.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  } else {
+    head.innerText = `Còn ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây đến sinh nhật của ${config.name}`;
+  }
 }
 
 // Initial call to set up the countdown display
@@ -65,9 +69,22 @@ updateCountdown();
 // Set up interval to update the countdown every second
 const timer = setInterval(updateCountdown, second);
 
+function updateCanvasSize() {
+  const canvas = document.getElementById('confetti');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+window.addEventListener('resize', function() {
+  updateCanvasSize();
+  confetti.clear();
+  confetti.render();
+});
+
 // Đảm bảo rằng countdown hiển thị ngay khi trang được tải
 window.onload = function() {
   updateCountdown();
+  updateCanvasSize();
   head.style.display = 'block';
   count.style.display = 'block';
 };
