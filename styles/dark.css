@@ -1,0 +1,14 @@
+:root {
+  --background-color: #1a1a1a;
+  --text-color: #e0e1dc;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Xóa hoặc comment out phần này nếu có */
+/* .card {
+  background: var(--card-background);
+} */

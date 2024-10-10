@@ -3,8 +3,8 @@ const head = document.getElementById('head');
 const merrywrap = document.getElementById('merrywrap');
 
 const config = {
-  birthdate: 'Oct 11, 2024',
-  name: 'SuSu (Nguyễn Quỳnh Anh)'
+  birthdate: 'Oct 10, 2024',
+  name: 'SuSu'
 };
 
 function hideEverything() {
@@ -51,16 +51,18 @@ function updateCountdown() {
   document.getElementById('minute').innerText = minutes.toString().padStart(2, '0');
   document.getElementById('second').innerText = seconds.toString().padStart(2, '0');
 
-  head.style.display = 'block';
-  count.style.display = 'block';
-  merrywrap.style.display = 'none';
-
   // Cập nhật tiêu đề với thời gian còn lại
   if (window.innerWidth <= 480) {
-    head.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    head.innerText = `${config.name}'s (Nguyen Quynh Anh) Birthday`; // Rút gọn tiêu đề trên điện thoại
+    head.style.display = 'block'; // Luôn hiển thị tiêu đề trên điện thoại
   } else {
-    head.innerText = `Còn ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây đến sinh nhật của ${config.name}`;
+    head.innerText = `Countdown to ${config.name}'s (Nguyen Quynh Anh) birthday`;
+    head.style.display = 'block';
   }
+
+  // Hiển thị đồng hồ đếm ngược
+  count.style.display = 'block';
+  merrywrap.style.display = 'none';
 }
 
 // Initial call to set up the countdown display
@@ -73,18 +75,166 @@ function updateCanvasSize() {
   const canvas = document.getElementById('confetti');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  canvas.style.position = 'fixed';
+  canvas.style.top = '0';
+  canvas.style.left = '0';
+  canvas.style.zIndex = '1000';
+  canvas.style.pointerEvents = 'none';
 }
 
-window.addEventListener('resize', function() {
+function handleResize() {
   updateCanvasSize();
+  updateCountdown();
   confetti.clear();
+  confetti = new window.ConfettiGenerator({
+    target: 'confetti',
+    max: 150, // Tăng số lượng pháo giấy từ 80 lên 150
+    size: 1.5, // Tăng kích thước pháo giấy lên một chút
+    animate: true,
+    props: ['circle', 'square', 'triangle', 'line'],
+    colors: [[165,104,246],[230,61,135],[0,199,228],[253,214,126]],
+    clock: 30, // Tăng tốc độ rơi
+    width: window.innerWidth,
+    height: window.innerHeight,
+    start_from_edge: true, // Thêm dòng này
+    origin: { y: 0 }, // Thêm dòng này
+    respawn: true, // Thêm option này để pháo giấy liên tục được tạo mới
+    spread: 180, // Tăng góc phân tán
+  });
   confetti.render();
-});
+}
+
+window.addEventListener('resize', handleResize);
 
 // Đảm bảo rằng countdown hiển thị ngay khi trang được tải
 window.onload = function() {
   updateCountdown();
   updateCanvasSize();
-  head.style.display = 'block';
-  count.style.display = 'block';
+  handleResize(); // Gọi hàm này để đảm bảo mọi thứ được cập nhật đúng
+  setupCardInteraction(); // Thêm dòng này
 };
+
+function setupCardInteraction() {
+  const card = document.querySelector('.card');
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    // Xử lý cho thiết bị di động
+    let isOpen = false;
+    card.addEventListener('click', () => {
+      isOpen = !isOpen;
+      if (isOpen) {
+        card.classList.add('open');
+      } else {
+        card.classList.remove('open');
+      }
+    });
+  } else {
+    // Xử lý cho máy tính (giữ nguyên hành vi hiện tại)
+    card.addEventListener('mouseenter', () => {
+      card.classList.add('open');
+    });
+    card.addEventListener('mouseleave', () => {
+      card.classList.remove('open');
+    });
+  }
+}
+
+// Gọi hàm này khi trang được tải
+window.onload = function() {
+  updateCountdown();
+  updateCanvasSize();
+  handleResize();
+  setupCardInteraction(); // Thêm dòng này
+};
+
+function adjustFontSize() {
+  const card = document.querySelector('.card');
+  const details = card.querySelector('.details');
+  const content = details.querySelector('.content');
+  
+  let fontSize = 12; // Bắt đầu với kích thước chữ 12px
+  content.style.fontSize = `${fontSize}px`;
+  
+  while (content.scrollHeight > details.clientHeight && fontSize > 8) {
+    fontSize -= 0.5;
+    content.style.fontSize = `${fontSize}px`;
+  }
+}
+
+// Gọi hàm này sau khi trang đã tải và mỗi khi cửa sổ thay đổi kích thước
+window.addEventListener('load', adjustFontSize);
+window.addEventListener('resize', adjustFontSize);
+
+// Xóa tất cả các hàm liên quan đến dark mode
+
+// Sử dụng DOMContentLoaded thay vì window.onload
+document.addEventListener('DOMContentLoaded', initializePage);
+
+function initializePage() {
+  updateCountdown();
+  updateCanvasSize();
+  handleResize();
+  setupCardInteraction();
+  adjustFontSize();
+  
+  // Khởi tạo lại confetti sau khi cập nhật kích thước canvas
+  confetti.clear();
+  confetti = new window.ConfettiGenerator({
+    target: 'confetti',
+    max: 150, // Tăng số lượng pháo giấy từ 80 lên 150
+    size: 1.5, // Tăng kích thước pháo giấy lên một chút
+    animate: true,
+    props: ['circle', 'square', 'triangle', 'line'],
+    colors: [[165,104,246],[230,61,135],[0,199,228],[253,214,126]],
+    clock: 30, // Tăng tốc độ rơi
+    width: window.innerWidth,
+    height: window.innerHeight,
+    start_from_edge: true, // Thêm dòng này
+    origin: { y: 0 }, // Thêm dòng này
+    respawn: true, // Thêm option này để pháo giấy liên tục được tạo mới
+    spread: 180, // Tăng góc phân tán
+  });
+  confetti.render();
+  
+  // Khởi tạo dark mode toggle
+  const darkModeToggle = document.getElementById('dark-mode-toggle-1');
+  darkModeToggle.addEventListener('colorschemechange', () => {
+    document.body.classList.toggle('dark', darkModeToggle.mode === 'dark');
+    updateCardColors();
+  });
+
+  // Gọi hàm này để đặt màu sắc ban đầu
+  updateCardColors();
+}
+
+function updateCardColors() {
+  const isDarkMode = document.body.classList.contains('dark');
+  const root = document.documentElement;
+
+  requestAnimationFrame(() => {
+    root.style.setProperty('--background-color', isDarkMode ? '#1a1a1a' : '#FFFFFF');
+    root.style.setProperty('--text-color', isDarkMode ? '#ffffff' : '#013243');
+    // Không thay đổi màu của p trong card
+    root.style.setProperty('--card-text-color', '#013243');
+  });
+}
+
+// Xóa hàm setupDarkModeToggle nếu nó tồn tại
+
+document.addEventListener('DOMContentLoaded', initializePage);
+
+// Xóa hàm setupDarkModeToggle và tất cả các đoạn mã liên quan đến dark mode
+
+function disableTextSelection() {
+  const cardDetails = document.querySelector('.card .details');
+  cardDetails.addEventListener('selectstart', function(e) {
+    e.preventDefault();
+  });
+}
+
+// Thêm hàm này vào danh sách các hàm được gọi khi trang được tải
+document.addEventListener('DOMContentLoaded', function() {
+  // ... các hàm khác ...
+  disableTextSelection();
+});

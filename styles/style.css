@@ -1,15 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower');
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
 
 body {
   font-family: 'Indie Flower', cursive !important;
-  background: #FFFFFF; /* Thay đổi màu nền thành trắng */
+  background: #FFFFFF;
   margin: 0px;
-  padding: 0px;
-}
-
-::selection {
-  background: transparent;
+  padding: 0px 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 h4 {
@@ -28,23 +30,40 @@ h4 {
   transform: translate(-50%, -50%);
   text-align: center;
   width: 100%;
+  max-width: 800px;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1000;
 }
 
 h1 {
   font-weight: normal;
+  margin-bottom: 20px;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 
 li {
-  display: inline-block;
-  font-size: 1.5em;
-  list-style-type: none;
-  padding: 1em;
+  font-size: 1em;
+  padding: 0 10px;
   text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 li span {
   display: block;
-  font-size: 4.5rem;
+  font-size: 2.5rem;
+  margin-bottom: 5px;
 }
 
 .card {
@@ -96,6 +115,10 @@ li span {
   position: relative;
   transform-origin: left;
   transition: .7s;
+  user-select: none; 
+  -webkit-user-select: none;  
+  -moz-user-select: none;  
+  -ms-user-select: none;  
 }
 
 .card .bark {
@@ -110,6 +133,10 @@ li span {
 .card .imgBox img {
   min-width: 250px;
   max-height: 400px;
+  user-select: none; 
+  -webkit-user-select: none;
+  -moz-user-select: none; 
+  -ms-user-select: none; 
 }
 
 .card:hover .imgBox {
@@ -127,20 +154,41 @@ li span {
   top: 0;
   left: 0;
   box-sizing: border-box;
-  padding: 0 0 0 10px;
+  padding: 20px;
   z-index: -1;
-  margin-top: 70px;
+  margin-top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .card .details p {
-  font-size: 15px;
-  line-height: 5px;
-  transform: rotate(-10deg);
-  padding: 0 0 0 20px;
+  color: var(--card-text-color); /* Áp dụng biến màu cho thẻ p */
+  font-size: 14px;
+  line-height: 1.4;
+  transform: none;
+  padding: 0;
+  margin: 5px 0;
 }
 
 .card .details h4 {
   text-align: center;
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.card .details h4.color1 {
+  margin-bottom: 15px;
+}
+
+.card .details h4.color2 {
+  margin-top: 15px;
 }
 
 .text-right {
@@ -155,10 +203,9 @@ li span {
   top: 40px;
 }
 
-/* ... existing styles ... */
-
 @media screen and (max-width: 768px) {
   .container {
+    top: 50%;
     width: 90%;
     padding: 20px;
   }
@@ -168,12 +215,15 @@ li span {
   }
 
   li {
-    font-size: 1.2em;
-    padding: 0.5em;
+    font-size: 0.9em;
+    padding: 0 5px;
+    text-transform: uppercase;
+    flex: 1 1 auto;
+    min-width: 80px;
   }
 
   li span {
-    font-size: 3rem;
+    font-size: 2rem;
   }
 
   .card {
@@ -205,35 +255,208 @@ li span {
 }
 
 @media screen and (max-width: 480px) {
+  .card {
+    width: 85%;
+    height: auto;
+    max-height: 70vh;
+    transform: translate(-50%, -50%) perspective(1000px);
+  }
+
+  .card:hover, .card.open {
+    transform: translate(-50%, -50%) perspective(1000px) rotate(5deg) scale(1.05);
+  }
+
+  .card .imgBox img {
+    width: 100%;
+    height: auto;
+    max-height: 50vh;
+    object-fit: cover;
+  }
+
+  .card .details {
+    padding: 15px;
+    justify-content: flex-start;
+    overflow-y: auto;
+    max-height: calc(100% - 30px);
+  }
+
+  .card .details h4 {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+
+  .card .details h4.color1 {
+    margin-bottom: 10px;
+  }
+
+  .card .details h4.color2 {
+    margin-top: 10px;
+  }
+
+  .card .details p {
+    font-size: 12px;
+    line-height: 1.4;
+    margin: 5px 0;
+  }
+
+  .card .details .content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card .details .signature {
+    margin-top: 10px;
+    align-self: flex-end;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  li {
+    font-size: 0.5em;
+  }
+
+  li span {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 768px) and (min-width: 481px) {
+  .container {
+    width: 90%;
+    padding: 15px;
+  }
+
   h1 {
     font-size: 20px;
   }
 
   li {
-    font-size: 1em;
-    padding: 0.3em;
+    font-size: 0.8em;
+    padding: 0 5px;
   }
 
   li span {
-    font-size: 2.5rem;
+    font-size: 1.8rem;
   }
+}
 
-  .card {
-    width: 200px;
-    height: 300px;
-  }
+.card.open {
+  transform: translate(-50%,-50%) perspective(2000px) rotate(15deg) scale(1.2);
+  box-shadow: inset 20px 0 50px rgba(0,0,0,.5), 0 10px 100px rgba(0,0,0,.5);
+}
 
-  .card .imgBox img {
-    min-width: 150px;
-    max-height: 300px;
-  }
+.card.open .imgBox {
+  transform: rotateY(-135deg);
+}
 
-  .card .details {
-    margin-top: 30px;
-  }
+.card.open .bark {
+  opacity: 1;
+  transition: .6s;
+  box-shadow: 300px 200px 100px rgba(0, 0, 0, .4) inset;
+}
 
-  .card .details p {
-    font-size: 11px;
-    line-height: 3px;
+/* Thêm styles này vào cuối file */
+
+.dark-mode-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1002; /* Tăng z-index để đảm bảo nút hiển thị trên cùng */
+}
+
+@media screen and (max-width: 768px) {
+  .dark-mode-toggle {
+    top: 10px;
+    right: 10px;
   }
+}
+
+/* Thêm styles mới để tùy chỉnh giao diện của nút */
+.dark-mode-toggle::part(button) {
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dark-mode-toggle::part(button):hover {
+  background-color: #e0e0e0;
+}
+
+/* Tùy chỉnh màu sc cho chế độ tối */
+body.dark .dark-mode-toggle::part(button) {
+  background-color: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+body.dark .dark-mode-toggle::part(button):hover {
+  background-color: #444;
+}
+
+:root {
+  --card-background: #e0e1dc;
+  --card-color: #013243;
+  --card-shadow: rgba(0,0,0,.5);
+  --card-text-color: #013243; /* Màu cho văn bản p trong chế độ sáng */
+  --card-h4-color: #1BBC9B; /* Màu cho h4.color1 */
+  --card-h4-color2: #C0392B; /* Màu cho h4.color2 */
+  --text-color: #013243;
+  --card-glow: rgba(255, 255, 255, 0.5);
+}
+
+body.dark {
+  --background-color: #1a1a1a;
+  --text-color: #e0e1dc;
+  --card-text-color: #013243; /* Giữ nguyên màu cho p trong card */
+  --text-color: #ffffff;
+  --card-glow: rgba(255, 255, 255, 0.3); /* Giảm độ sáng trong chế độ tối */
+}
+
+.card {
+  color: var(--card-color);
+  background: var(--card-background);
+  box-shadow: inset 300px 0 50px var(--card-shadow), 20px 0 60px var(--card-shadow),
+              0 0 15px 5px rgba(255, 255, 255, 0.5);
+}
+
+.card:hover {
+  box-shadow: inset 20px 0 50px var(--card-shadow), 0 10px 100px var(--card-shadow),
+              0 0 20px 10px rgba(255, 255, 255, 0.7);
+}
+
+.card .bark {
+  background: var(--card-background);
+}
+
+.card:hover .bark {
+  box-shadow: 300px 200px 100px var(--card-shadow) inset;
+}
+
+.card .details p {
+  color: var(--card-text-color); /* Áp dụng biến màu cho thẻ p */
+}
+
+/* Giữ nguyên màu cho h4 */
+.card .details h4.color1 { color: var(--card-h4-color); }
+.card .details h4.color2 { color: var(--card-h4-color2); }
+
+#head, li {
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+/* Nếu bạn muốn chỉ thay đổi màu của số đếm ngược */
+li span {
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.card .details p {
+  color: var(--card-text-color);
 }
