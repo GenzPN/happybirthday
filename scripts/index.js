@@ -41,17 +41,22 @@ function updateCountdown() {
   }
 
   // Countdown is still ongoing
-  document.getElementById('day').innerText = Math.floor(distance / day);
-  document.getElementById('hour').innerText = Math.floor((distance % day) / hour);
-  document.getElementById('minute').innerText = Math.floor((distance % hour) / minute);
-  document.getElementById('second').innerText = Math.floor((distance % minute) / second);
+  let days = Math.floor(distance / day);
+  let hours = Math.floor((distance % day) / hour);
+  let minutes = Math.floor((distance % hour) / minute);
+  let seconds = Math.floor((distance % minute) / second);
+
+  document.getElementById('day').innerText = days;
+  document.getElementById('hour').innerText = hours.toString().padStart(2, '0');
+  document.getElementById('minute').innerText = minutes.toString().padStart(2, '0');
+  document.getElementById('second').innerText = seconds.toString().padStart(2, '0');
 
   head.style.display = 'block';
   count.style.display = 'block';
   merrywrap.style.display = 'none';
 
-  // Thêm dòng này để hiển thị thời gian còn lại
-  head.innerText = `Countdown to ${config.name}'s birthday:`;
+  // Cập nhật tiêu đề với thời gian còn lại
+  head.innerText = `Còn ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây đến sinh nhật của ${config.name}`;
 }
 
 // Initial call to set up the countdown display
