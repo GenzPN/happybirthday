@@ -120,14 +120,8 @@ function setupCardInteraction() {
 
   if (isMobile) {
     // Xử lý cho thiết bị di động
-    let isOpen = false;
     card.addEventListener('click', () => {
-      isOpen = !isOpen;
-      if (isOpen) {
-        card.classList.add('open');
-      } else {
-        card.classList.remove('open');
-      }
+      card.classList.toggle('open');
     });
   } else {
     // Xử lý cho máy tính (giữ nguyên hành vi hiện tại)
