@@ -1,0 +1,12 @@
+<head>
+  <!-- Các thẻ meta và link khác -->
+  <script>
+    // Khôi phục trạng thái dark mode ngay khi có thể
+    (function() {
+      const isDark = localStorage.getItem('darkMode') === 'true';
+      if (isDark) {
+        document.body.classList.add('dark-mode');
+      }
+    })();
+  </script>
+</head>
