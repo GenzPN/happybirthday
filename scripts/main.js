@@ -1,11 +1,16 @@
 const BUTTON = document.querySelector("button");
 
+// Sửa đổi hàm TOGGLE trong file scripts/main.js
 const TOGGLE = () => {
   const IS_PRESSED = BUTTON.matches("[aria-pressed=true]");
-  document.body.setAttribute("data-dark-mode", IS_PRESSED ? false : true);
-  document.body.classList.toggle('dark', !IS_PRESSED); // Đảm bảo dòng này tồn tại
-  BUTTON.setAttribute("aria-pressed", IS_PRESSED ? false : true);
-  updateCardColors();
+  const NEW_PRESSED_STATE = !IS_PRESSED;
+  
+  document.body.setAttribute("data-dark-mode", NEW_PRESSED_STATE);
+  document.body.classList.toggle('dark', NEW_PRESSED_STATE);
+  BUTTON.setAttribute("aria-pressed", NEW_PRESSED_STATE);
+  
+  // Thêm dòng này để cập nhật màu nền
+  updateBackgroundColor(NEW_PRESSED_STATE);
 };
 
 BUTTON.addEventListener("click", TOGGLE);
@@ -15,5 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const IS_PRESSED = BUTTON.matches("[aria-pressed=true]");
   document.body.setAttribute("data-dark-mode", IS_PRESSED);
   document.body.classList.toggle('dark', IS_PRESSED);
-  updateCardColors();
+  updateBackgroundColor(IS_PRESSED);
 });
+
+// Thêm hàm mới này để cập nhật màu nền
+function updateBackgroundColor(isDarkMode) {
+  document.body.style.backgroundColor = isDarkMode ? '#1a1a1a' : 'hsl(219, 30%, 88%)';
+}

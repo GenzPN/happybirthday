@@ -11,22 +11,25 @@
   <link rel="stylesheet" href="styles/style.css" media="all">
   <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Amatic+SC" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-  
+  <link rel="stylesheet" href="styles/button.css" media="all">
   <!-- Thêm các stylesheet cho dark mode -->
   <!-- <link rel="stylesheet" href="styles/light.css" media="(prefers-color-scheme: light)">
   <link rel="stylesheet" href="styles/dark.css" media="(prefers-color-scheme: dark)"> -->
-  <link rel="stylesheet" href="styles/button.css" media="all">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/MotionPathPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/MorphSVGPlugin.min.js"></script>
   
   <!-- Thêm script cho dark mode toggle -->
   <!-- <script type="module" src="https://googlechromelabs.github.io/dark-mode-toggle/src/dark-mode-toggle.mjs"></script> -->
 </head>
 
 <body>
+  <canvas id="confetti"></canvas>
   <!-- Thêm nút chuyển đổi dark mode -->
   <dark-mode-toggle id="dark-mode-toggle-1" class="dark-mode-toggle" appearance="switch" dark="Dark" light="Light"></dark-mode-toggle>
-
   <!-- Các phần tử khác của trang -->
-  <canvas id="confetti"></canvas>
+  <canvas id="snow"></canvas>
+  <!-- Các phần tử khác của trang -->
   <!-- <div class="controls">
     <label for="sync">Sync &lt;body&gt;</label>
     <input id="sync" type="checkbox" checked />
@@ -227,7 +230,7 @@
       </span>
     </span>
   </button>
-  <!--<a class="bear-link" href="https://twitter.com/intent/follow?screen_name=jh3yy" target="_blank" rel="noreferrer noopener">
+  <a class="bear-link" href="https://www.facebook.com/HoangQuan11105/" target="_blank" rel="noreferrer noopener">
     <svg class="w-9" viewBox="0 0 969 955" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="161.191" cy="320.191" r="133.191" stroke="currentColor" stroke-width="20"></circle>
       <circle cx="806.809" cy="320.191" r="133.191" stroke="currentColor" stroke-width="20"></circle>
@@ -237,7 +240,7 @@
       <rect x="310.42" y="448.31" width="343.468" height="51.4986" fill="#FF1E1E"></rect>
       <path fill-rule="evenodd" clip-rule="evenodd" d="M745.643 288.24C815.368 344.185 854.539 432.623 854.539 511.741H614.938V454.652C614.938 433.113 597.477 415.652 575.938 415.652H388.37C366.831 415.652 349.37 433.113 349.37 454.652V511.741L110.949 511.741C110.949 432.623 150.12 344.185 219.845 288.24C289.57 232.295 384.138 200.865 482.744 200.865C581.35 200.865 675.918 232.295 745.643 288.24Z" fill="currentColor"></path>
     </svg>
-  </a>-->
+  </a>
   <div class="container" id="count">
     <h1 id="head">Countdown to your birthday:</h1>
     <ul>
@@ -267,12 +270,21 @@
         <p class="text-right">♥[Your Name]</p>
       </div>
     </div>
+    <button id="bonusGiftBtn" class="bonus-gift-btn">Món Quà Bonus</button>
   </div>
-  
+  <div id="giftModal" class="modal">
+    <div class="modal-content">
+      <h2>Thông báo</h2>
+      <p>Bạn đã đọc hết bức thư chưa?</p>
+      <div class="modal-buttons">
+        <button id="readBtn">Đã đọc hết</button>
+        <button id="notReadBtn">Chưa, tôi sẽ quay lại đọc</button>
+      </div>
+    </div>
+  </div>
+  <script src="scripts/snow.js" charset="utf-8"></script>
   <script src="scripts/confetti.min.js" charset="utf-8"></script>
   <script src="scripts/index.js" charset="utf-8"></script>
   <script src="scripts/main.js" charset="utf-8"></script>
 </body>
 </html>
-
-

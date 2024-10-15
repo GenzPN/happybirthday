@@ -4,7 +4,7 @@
 
 body {
   font-family: 'Indie Flower', cursive !important;
-  background: #FFFFFF;
+  background: hsl(219, 30%, 88%);
   margin: 0px;
   padding: 0px 0;
   min-height: 100vh;
@@ -12,6 +12,8 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  position: relative;
+  z-index: 0;
 }
 
 h4 {
@@ -33,7 +35,7 @@ h4 {
   max-width: 800px;
   padding: 20px;
   box-sizing: border-box;
-  z-index: 1000;
+  z-index: 1001; /* Đảm bảo container hiển thị trên animation cây */
 }
 
 h1 {
@@ -67,8 +69,10 @@ li span {
 }
 
 .card {
-  color: #013243;
-  position: absolute;
+  background-color: #e0e1dc !important;
+  color: #013243 !important;
+  position: relative;
+  z-index: 2;
   top: 50%;
   left: 50%;
   width: 300px;
@@ -118,7 +122,7 @@ li span {
   user-select: none; 
   -webkit-user-select: none;  
   -moz-user-select: none;  
-  -ms-user-select: none;  
+  -ms-user-select: none; 
 }
 
 .card .bark {
@@ -150,6 +154,8 @@ li span {
 }
 
 .card .details {
+  background-color: #e0e1dc !important;
+  color: #013243 !important;
   position: absolute;
   top: 0;
   left: 0;
@@ -169,7 +175,7 @@ li span {
 }
 
 .card .details p {
-  color: var(--card-text-color); /* Áp dụng biến màu cho thẻ p */
+  color: #013243;
   font-size: 14px;
   line-height: 1.4;
   transform: none;
@@ -196,7 +202,8 @@ li span {
 }
 
 .merrywrap {
-  position: absolute;
+  position: relative;
+  z-index: 1;
   right: 40px;
   left: 40px;
   bottom: 80px;
@@ -360,10 +367,10 @@ li span {
 /* Thêm styles này vào cuối file */
 
 .dark-mode-toggle {
-  position: fixed;
+  position: relative;
+  z-index: 3;
   top: 20px;
   right: 20px;
-  z-index: 1002; /* Tăng z-index để đảm bảo nút hiển thị trên cùng */
 }
 
 @media screen and (max-width: 768px) {
@@ -373,7 +380,7 @@ li span {
   }
 }
 
-/* Thêm styles mới để tùy chỉnh giao diện của nút */
+/* Thêm styles mới đ tùy chỉnh giao diện của nút */
 .dark-mode-toggle::part(button) {
   padding: 5px 10px;
   font-size: 14px;
@@ -391,7 +398,7 @@ li span {
 /* Tùy chỉnh màu sc cho chế độ tối */
 body.dark .dark-mode-toggle::part(button) {
   background-color: #333;
-  color: #fff;
+  color: #FFF;
   border-color: #555;
 }
 
@@ -459,4 +466,110 @@ li span {
 
 .card .details p {
   color: var(--card-text-color);
+}
+
+#snow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+#confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.bonus-gift-btn {
+  position: relative;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: 'Indie Flower', cursive;
+  background-color: #FF69B4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 4;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.modal-buttons {
+  margin-top: 20px;
+}
+
+.modal-buttons button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: 'Indie Flower', cursive;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#readBtn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#notReadBtn {
+  background-color: #f44336;
+  color: white;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+#confetti {
+  z-index: -1 !important;
+}
+
+.toggle {
+  position: fixed;
+  z-index: 1002; /* Đảm bảo nút toggle hiển thị trên tất cả */
+}
+
+.card .details {
+  background-color: #e0e1dc !important;
+  color: #013243 !important;
+}
+
+.merrywrap.hidden {
+  display: none !important;
 }
